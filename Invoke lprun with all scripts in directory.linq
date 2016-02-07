@@ -12,13 +12,17 @@ var queryPath = basePath + @"queries\TestLPRun\";
 DirectoryInfo d = new DirectoryInfo(queryPath);
 foreach (var file in d.GetFiles("*.linq"))
 {
-//      Directory.Move(file.FullName, filepath + "\\TextFiles\\" + file.Name);
-	  runScript(basePath, file.FullName);
+	  runScript(file.FullName);
 }
 
 }
 
-public void runScript(string pathToLPRun, string scriptPath)
+public void runScript(string scriptPath)
+{
+	Util.Run(scriptPath, QueryResultFormat.HtmlFragment).Dump();
+}
+
+public void runScriptWithPowerShell(string pathToLPRun, string scriptPath)
 {
 	var runspaceConfiguration = RunspaceConfiguration.Create();
 	var runspace = RunspaceFactory.CreateRunspace(runspaceConfiguration);
